@@ -1,11 +1,10 @@
-import { AlgorandClient } from '@algorandfoundation/algokit-utils'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useWallet } from '@txnlab/use-wallet-react'
-import confetti from 'canvas-confetti'
 import 'ldrs/bouncy'
 import { useState } from 'react'
-import { sendToVault } from '../api'
 import { ASSET_INFO, ORA_ASSET_ID } from '../constants'
-import { getAlgodConfigFromViteEnvironment } from '../utils/network/getAlgoClientConfigs'
+import { algorand } from '../algorand'
+import { sendToVault } from '../api'
 
 interface NFDData {
   depositAccount: string | null
@@ -39,13 +38,11 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
   const [loading, setLoading] = useState(false)
   const [receiverAddress, setReceiverAddress] = useState('')
   const [amount, setAmount] = useState('')
-  const [transactionStatus, setTransactionStatus] = useState<'loading' | 'success' | 'error'>('loading')
-  const [transactionMessage, setTransactionMessage] = useState('')
+  const [transactionStatus] = useState<'loading' | 'success' | 'error'>('loading')
+  const [transactionMessage] = useState('')
 
   const wallet = useWallet()
   const { activeAddress, signTransactions } = wallet
-  const algodConfig = getAlgodConfigFromViteEnvironment()
-  const algorand = AlgorandClient.fromConfig({ algodConfig })
 
   type CustomAssetHolding = {
     assetId: bigint
@@ -73,6 +70,7 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
       } else {
         return false
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return false
     }
@@ -98,6 +96,7 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
         depositAccount: data.depositAccount,
         isOptedIn: isOptedInToORA, // Use the result from the blockchain check
       }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       return null
     }
@@ -124,7 +123,7 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
         `Transaction Sent: <a href="https://lora.algokit.io/mainnet/transaction/${result.txIds[0]}" target="_blank">View</a>`,
         'success',
       )
-      confetti({ particleCount: 100, spread: 70 })
+      //confetti({ particleCount: 100, spread: 70 })
       setReceiverAddress('')
       setAmount('')
     } catch (e) {
@@ -231,12 +230,12 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
 
         {transactionStatus === 'loading' ? (
           <div className="flex justify-center">
-            <l-bouncy size="40" color="orange" />
+            {/* <l-bouncy size="40" color="orange" /> */}
           </div>
         ) : (
           <div className="flex justify-center">
-            <l-bouncy size="40" color={transactionStatus === 'success' ? 'green' : 'red'} />
-          </div>
+{/*             <l-bouncy size="40" color={transactionStatus === 'success' ? 'green' : 'red'} />
+ */}          </div>
         )}
 
         <p className="mt-4">{transactionMessage}</p>

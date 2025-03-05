@@ -6,14 +6,15 @@ import { WalletContext } from '../context/wallet'
 import AnimButton from './animButton'
 
 export const WalletConnectionModal: React.FC = () => {
-  const { wallets, activeAccount } = useWallet()
+  const { wallets } = useWallet()
   const { setLoading, setTitle } = useContext(LoadingContext)
   const { displayWalletConnectModal, setDisplayWalletConnectModal } = useContext(WalletContext)
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   async function handleOnConnect(wallet: any) {
     setTitle('Connecting Wallet...')
     setLoading(true)
-    wallet.connect().then(async (response: any) => {
+    wallet.connect().then(async () => {
       setDisplayWalletConnectModal(false)
     })
   }
