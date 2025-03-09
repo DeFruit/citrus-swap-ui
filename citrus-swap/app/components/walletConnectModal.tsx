@@ -4,6 +4,7 @@ import { RxCross1 } from 'react-icons/rx'
 import { LoadingContext } from '../context/loading'
 import { WalletContext } from '../context/wallet'
 import AnimButton from './animButton'
+import Image from 'next/image'
 
 export const WalletConnectionModal: React.FC = () => {
   const { wallets } = useWallet()
@@ -49,9 +50,9 @@ export const WalletConnectionModal: React.FC = () => {
                   >
                     <div className=" items-center justify-center">
                       <div className="rounded-full h-16 w-16 overflow-hidden bg-transparent">
-                        <img src={wallet.metadata.icon} alt="wallet-logo" className="h-16 w-16" />
+                        <Image src={wallet.metadata.icon} alt="wallet-logo" className="h-16 w-16" />
                       </div>
-                      <div className="text-2xl font-bold font-barriecito">
+                      <div className="text-2xl font-bold ">
                         <div>{wallet.metadata.name}</div>
                       </div>
                     </div>
