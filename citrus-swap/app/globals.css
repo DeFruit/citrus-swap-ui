@@ -46,26 +46,8 @@ pre {
   font-family: 'Barriecito', monospace;
 }
 
-/* Add specific styles for the Header */
-header {
-  font-family: 'Fredoka', Arial, Helvetica, sans-serif;
-  background-color: var(--background);
-  color: var(--foreground);
-}
 
-/* Ensure links inherit font and colour */
-header a {
-  font-family: 'Fredoka', Arial, Helvetica, sans-serif;
-  color: var(--foreground);
-  text-decoration: none;
-}
 
-header button {
-  font-family: 'Fredoka', Arial, Helvetica, sans-serif;
-  background-color: var(--foreground);
-  color: var(--background);
-  border: none;
-}
 
 /* Background overlay */
 .modal {
