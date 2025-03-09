@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Dialog } from "@headlessui/react";
 import { useWallet } from "@txnlab/use-wallet-react";
 import { useSnackbar } from "notistack";
@@ -9,6 +10,8 @@ import { WalletContext } from "../context/wallet";
 import { LoadingContext } from "../context/loading";
 import AnimButton from "./animButton";
 import { algorand } from "../algorand";
+import Image from "next/image";
+import { WalletConnectionModal } from "./walletConnectModal";
 
 // Navigation links
 const navigation = [
@@ -155,7 +158,7 @@ export function Header() {
           {/* Logo */}
           <a href="#" className="">
             <span className="sr-only">Citrus Swap</span>
-            <img
+            <Image
               src="/Citrus Swap.svg"
               alt="Citrus Swap Logo"
               width={300}
@@ -219,7 +222,7 @@ export function Header() {
       <Dialog
         open={mobileMenuOpen}
         onClose={toggleMobileMenu}
-        className="lg:hidden"
+        className=""
       >
         <div className="fixed inset-0 z-10" />
         <div className="fixed inset-y-0 right-0 z-20 w-full overflow-y-auto bg-white px-3 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
@@ -227,7 +230,7 @@ export function Header() {
           <div className="flex items-center justify-between p-4">
             <a href="#">
               <span className="sr-only">Citrus Swap</span>
-              <img
+              <Image
                 src="/Citrus Swap.svg"
                 alt="Citrus Swap Logo"
                 width={300}
@@ -237,7 +240,7 @@ export function Header() {
             <button
               type="button"
               onClick={toggleMobileMenu}
-              className="text-gray-700"
+              className="text-black h-20 w-20"
             >
               <span className="sr-only">Close menu</span>
               <FaTimes className="h-6 w-6" aria-hidden="true" />
@@ -282,6 +285,7 @@ export function Header() {
           </div>
         </div>
       </Dialog>
+      <WalletConnectionModal />
     </header>
   );
 }

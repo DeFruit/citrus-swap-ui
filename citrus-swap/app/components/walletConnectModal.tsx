@@ -25,7 +25,7 @@ export const WalletConnectionModal: React.FC = () => {
       <div className="fixed inset-0 z-50 flex items-center justify-center" aria-labelledby="modal-title" role="dialog" aria-modal="true">
         <div className="fixed inset-0 bg-transparent "></div>
         <div className="relative z-50 w-full max-w-lg p-4">
-          <div className="flex justify-center items-center transform overflow-hidden rounded-full text-left shadow-2xl transition-all bg-gradient-to-br from-amber-300 to-yellow-500 dark:text-white">
+          <div className="flex justify-center items-center transform overflow-hidden rounded-xl text-left shadow-2xl transition-all bg-gradient-to-br from-amber-300 to-yellow-500 dark:text-white">
             <div className="w-full p-4">
               <div className="flex justify-end">
                 <RxCross1
@@ -50,7 +50,7 @@ export const WalletConnectionModal: React.FC = () => {
                   >
                     <div className=" items-center justify-center">
                       <div className="rounded-full h-16 w-16 overflow-hidden bg-transparent">
-                        <Image src={wallet.metadata.icon} alt="wallet-logo" className="h-16 w-16" />
+                        <Image src={wallet.metadata.icon} alt="wallet-logo" className="h-16 w-16" width={16} height={16} />
                       </div>
                       <div className="text-2xl font-bold ">
                         <div>{wallet.metadata.name}</div>
