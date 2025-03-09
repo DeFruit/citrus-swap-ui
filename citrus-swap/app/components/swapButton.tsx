@@ -1,4 +1,6 @@
+'use client'
 import { motion } from 'framer-motion';
+import "./globals.css";
 
 export const SwapButton: React.FC = () => {
   return (
@@ -13,9 +15,9 @@ export const SwapButton: React.FC = () => {
           
         }}
         whileTap={{ scale: 0.95 }}
-        className="bg-lime-300 hover:text-white text-orange-400 text-3xl font-Bari rounded-full px-6 py-2 w-1/2 border-4 border-orange-400 shadow-xl"
+        className="bg-lime-300 hover:text-white text-orange-400 text-xl rounded-full px-6 py-2 w-1/2 border-4 border-orange-400 shadow-xl"
       >
-        Swap
+        blah
       </motion.button>
     </div>
   );
