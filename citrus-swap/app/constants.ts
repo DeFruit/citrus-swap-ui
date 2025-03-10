@@ -9,6 +9,7 @@ export const COMPX_API_URL = 'https://api-general.compx.io/api'
 export const ENV = {
   ALGOD_API_URL: 'https://mainnet-api.algonode.cloud',
   DEFLEX_API_KEY: '83a2c3c1-e15b-480c-9d0a-212ae70d9d57',
+  SWAP_API_URL: 'https://api-swap.compx.io',
 }
 
 // Asset Info interface to describe asset structure

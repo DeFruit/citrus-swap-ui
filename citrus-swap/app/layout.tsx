@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { LoadingContextProvider } from "./context/loading";
 import { WalletContextProvider } from "./context/wallet";
+import { SwapProvider } from "./context/swap";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,11 @@ export default function RootLayout({
       >
         <Providers>
           <LoadingContextProvider>
-            <WalletContextProvider>{children}</WalletContextProvider>
+            <WalletContextProvider>
+              <SwapProvider>
+                {children}
+              </SwapProvider>
+            </WalletContextProvider>
           </LoadingContextProvider>
         </Providers>
       </body>

@@ -6,11 +6,16 @@ import { useState } from 'react'
 import { ALGO_ASSET_ID, ORA_ASSET_ID } from '../constants'
 import AnimButton from './animButton'
 import { SwapInput } from './swapInput'
+import { useSwap } from '../context/swap'
 
 export const Swapper: React.FC = () => {
   const [isSwapped, setIsSwapped] = useState(false)
 
-  const onClickSwitchAssets = () => setIsSwapped((prev) => !prev)
+  const { switchAssets } = useSwap()
+  const onClickSwitchAssets = () => {
+    setIsSwapped((prev) => !prev)
+    switchAssets()
+  }
 
   return (
     <div>
