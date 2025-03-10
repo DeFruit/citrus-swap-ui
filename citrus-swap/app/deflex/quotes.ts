@@ -1,6 +1,6 @@
 // src/deflex/quotes.ts
 
-import { ALGO_ASSET_ID, ORA_ASSET_ID } from "../constants";
+import { ALGO_ASSET_ID, ORA_ASSET_ID, ORA_ASSET_INFO } from "../constants";
 import { deflexRouterClient } from "./client";
 
 export async function getQuote(
@@ -12,27 +12,21 @@ export async function getQuote(
     // Use constants for ORA and ALGO as default asset IDs
     const fromAsset = assetIdFrom || ORA_ASSET_ID;
     const toAsset = assetIdTo || ALGO_ASSET_ID;
+    // Scale amount based on asset decimals
+    const fromAssetDecimals = assetIdFrom === ALGO_ASSET_ID ? 6 : Number(ORA_ASSET_INFO.params.decimals);
+    const scaledAmount = amount * Math.pow(10, fromAssetDecimals);
 
-    // Fetch the swap quote
-    /* const response = await axios.get(`${ENV.SWAP_API_URL}/assetPrice`, {
-      params: {
-        chain: "mainnet",
-        fromASAID: fromAsset,
-        toASAID: toAsset,
-        atomicOnly: true,
-        amount: amount,
-        type: "fixed-input",
-        disabledProtocols: "",
-        secret: generateSecret(),
-        referrerAddress:
-          "AMXVXVAGVZ4WS7C4MG434QAMBRLYDQD76CWPBTHEWV6CNMRU2UJVNO76MA",
-      },
-    });
-    const swapQuote = response.data;
-    console.log(swapQuote); */
-    const quote = await deflexRouterClient.getFixedInputSwapQuote(fromAsset, toAsset, amount)
-    console.log(quote); 
-    return quote;
+    const deflexQuote = await deflexRouterClient.getFixedInputSwapQuote(fromAsset, toAsset, scaledAmount)
+    
+    // Scale down quote based on asset decimals
+    const toAssetDecimals = assetIdTo === ALGO_ASSET_ID ? 6 : Number(ORA_ASSET_INFO.params.decimals);
+    const scaledQuote = Number(deflexQuote.quote) / Math.pow(10, toAssetDecimals);
+
+    return {
+      quote: scaledQuote,
+      profitAmount: deflexQuote.profitAmount,
+      protocolFees: deflexQuote.protocolFees
+    };
   } catch (error) {
     console.error("Error fetching quote:", error);
     return null;

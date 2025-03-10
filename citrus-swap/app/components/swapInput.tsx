@@ -3,7 +3,7 @@ import { ASSET_INFO } from "../constants";
 import Image from "next/image";
 import { useSwap } from "../context/swap";
 import { useEffect, useState } from "react";
-import { jelly } from "ldrs";
+
 export interface SwapInputProps {
   assetId: number;
 }
@@ -22,8 +22,6 @@ export const SwapInput: React.FC<SwapInputProps> = ({ assetId }) => {
   const [isLoading, setIsLoading] = useState(false);
   const isFromInput = assetId === fromAsset;
 
-  // Register the loading spinner
-  jelly.register();
   // Update local state when context values change
   useEffect(() => {
     if (isFromInput) {
@@ -67,7 +65,7 @@ export const SwapInput: React.FC<SwapInputProps> = ({ assetId }) => {
         <div className="relative w-full">
           {!isFromInput && isLoading ? (
             <div className="w-full h-full flex items-center justify-end pr-10">
-              <l-jelly size="80" speed="0.9" color="rgb(163, 230, 53)" />
+              <div className="animate-spin h-8 w-8 border-4 border-lime-300 rounded-full border-t-transparent" />
             </div>
           ) : (
             <Input
