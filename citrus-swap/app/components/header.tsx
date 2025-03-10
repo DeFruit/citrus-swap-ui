@@ -156,7 +156,7 @@ export function Header() {
         {/* Left side: Logo and Navigation Links */}
         <div className="flex items-center gap-x-6">
           {/* Logo */}
-          <a href="//" className="">
+          <a href="#" className="">
             <span className="sr-only">Citrus Swap</span>
             <Image
               src="/Citrus Swap.svg"

@@ -1,11 +1,11 @@
-'use client'
+"use client";
 
 import { useWallet } from "@txnlab/use-wallet-react";
 import React, { useEffect, useState } from "react";
 import NotificationModal from "./components/NotificationModal";
 import { Header } from "./components/header";
 import Transact from "./components/oraSimpleTxn";
-import { Swapper } from "./components/swapper";
+import { SwapContainer } from "./components/swapConainer";
 
 const Home: React.FC = () => {
   const { activeAddress } = useWallet();
@@ -51,7 +51,7 @@ const Home: React.FC = () => {
           </h2>
         </div>
         <main className="flex flex-col gap-10 row-start-2 items-center mt-10 ">
-          <Swapper />
+          <SwapContainer />
         </main>
       </div>
 
