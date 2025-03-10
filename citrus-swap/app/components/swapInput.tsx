@@ -18,7 +18,7 @@ export const SwapInput: React.FC<SwapInputProps> = ({ assetId }) => {
           height={100}
         />
         <Input
-          className="w-full rounded-full border-4 border-lime-300 text-4xl text-gray-500 text-right px-4"
+          className="w-full rounded-full border-4 border-lime-300 bg-white font-bari text-4xl text-gray-500 text-right px-4"
           placeholder="0.00"
         />
       </div>
