@@ -156,7 +156,7 @@ export function Header() {
         {/* Left side: Logo and Navigation Links */}
         <div className="flex items-center gap-x-6">
           {/* Logo */}
-          <a href="#" className="">
+          <a href="//" className="">
             <span className="sr-only">Citrus Swap</span>
             <Image
               src="/Citrus Swap.svg"
@@ -174,7 +174,7 @@ export function Header() {
               key={item.name}
               href={item.href}
               target={item.name === "Join Our Community" ? "_blank" : "_self"}
-              className="text-lg font-Bari text-orange-400 hover:text-orange-600"
+              className="text-lg font-fred text-orange-400 hover:text-orange-600"
             >
               {item.name}
             </a>
