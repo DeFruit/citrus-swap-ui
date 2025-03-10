@@ -1,8 +1,7 @@
 // src/deflex/quotes.ts
 
-import axios from "axios";
-import { ALGO_ASSET_ID, ORA_ASSET_ID, ENV } from "../constants";
-import { deflexRouterClient, generateSecret } from "./client";
+import { ALGO_ASSET_ID, ORA_ASSET_ID } from "../constants";
+import { deflexRouterClient } from "./client";
 
 export async function getQuote(
   assetIdFrom: number,
