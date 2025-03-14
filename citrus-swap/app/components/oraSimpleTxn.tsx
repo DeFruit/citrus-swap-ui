@@ -6,6 +6,8 @@ import { ASSET_INFO, ORA_ASSET_ID } from '../constants'
 import { algorand } from '../algorand'
 import { sendToVault } from '../api'
 import Image from 'next/image'
+import { FaCheckCircle } from 'react-icons/fa';
+
 
 interface NFDData {
   depositAccount: string | null
@@ -225,68 +227,95 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
   }
 
   return (
-    <dialog id="transact_modal" className={`modal ${openModal ? 'modal-open' : ''}`} open={openModal}>
-      <form method="dialog" className="modal-box">
-        <h3 className="font-bold text-lg">Send ORA</h3>
-
+    <div
+      id="transact_modal"
+      className={`fixed inset-0 flex items-center justify-center z-50 ${openModal ? '' : 'hidden'}`}
+      style={{ backgroundColor: 'rgba(0, 0, 0, 0.5)' }}
+    >
+      <form
+        method="dialog"
+        className="bg-white p-6 rounded-lg shadow-xl w-96 relative"
+      >
+        <h3 className="font-bold text-lg text-orange-500">Send ORA</h3>
+  
         {transactionStatus === 'loading' ? (
-          <div className="flex justify-center">
-            {/* <l-bouncy size="40" color="orange" /> */}
+          <div className="flex justify-center py-4">
+            {/* Loading spinner can be placed here */}
+          </div>
+        ) : transactionStatus === 'success' ? (
+          <div className="flex justify-center py-4 text-green-500">
+            <FaCheckCircle size={40} />
           </div>
         ) : (
-          <div className="flex justify-center">
-{/*             <l-bouncy size="40" color={transactionStatus === 'success' ? 'green' : 'red'} />
- */}          </div>
+          <div className="flex justify-center py-4 text-red-500">
+            {/* Error icon can be placed here */}
+          </div>
         )}
-
-        <p className="mt-4">{transactionMessage}</p>
-
+  
+        <p className="mt-2 text-center">{transactionMessage}</p>
+  
         <input
           type="text"
           placeholder="Enter receiver's wallet address"
-          className="input input-bordered w-full"
+          className="input input-bordered w-full mt-4"
           value={receiverAddress}
           onChange={(e) => setReceiverAddress(e.target.value)}
         />
-
-        <div className="w-full rounded-full shadow-xl bg-orange-400 flex flex-col gap-4 p-4 border-4 border-lime-300">
-          <div className="flex justify-between space-x-2">
+  
+        <div className="w-full rounded-lg shadow-xl bg-orange-400 flex flex-col gap-4 p-4 border-4 border-lime-300 mt-4">
+          <div className="flex justify-between items-center space-x-2">
             <Image
               src={`/${ASSET_INFO[Number(ORA_ASSET_ID)].params.unitName}-logo.png`}
               alt={ASSET_INFO[Number(ORA_ASSET_ID)].params.unitName}
-              width={100}
-              height={100}
+              width={60}
+              height={60}
             />
             <input
-              className="w-full rounded-full border-4 border-lime-300 text-4xl text-orange-400 text-right px-4"
+              className="w-full rounded-lg border-4 border-lime-300 text-2xl text-orange-600 text-right px-4 bg-white"
               placeholder="0.00"
               value={amount}
-              onChange={(e) => setAmount(e.target.value)} // Handle amount input here
+              onChange={(e) => setAmount(e.target.value)}
             />
           </div>
         </div>
-
-        <div className="modal-action">
-          <button className="close-btn" onClick={() => setModalState(false)}>
+  
+        <div className="flex justify-end space-x-4 mt-6">
+          <button
+            type="button"
+            className="bg-gray-300 hover:bg-gray-400 px-4 py-2 rounded-md"
+            onClick={() => {
+              setModalState(false);
+            }}
+          >
             Close
           </button>
           <button
-            className={`btn ${
-              (receiverAddress.endsWith('.algo') || receiverAddress.length === 58) && amount && !isNaN(Number(amount))
-                ? 'btn-orange'
-                : 'btn-disabled'
+            type="button"
+            className={`px-4 py-2 rounded-md text-white transition ${
+              (receiverAddress.endsWith('.algo') || receiverAddress.length === 58) &&
+              amount &&
+              !isNaN(Number(amount))
+                ? 'bg-orange-500 hover:bg-orange-600'
+                : 'bg-gray-400 cursor-not-allowed'
             }`}
             onClick={(e) => {
-              e.preventDefault()
-              handleSubmitORA()
+              e.preventDefault();
+              handleSubmitORA();
             }}
+            disabled={
+              !(
+                (receiverAddress.endsWith('.algo') || receiverAddress.length === 58) &&
+                amount &&
+                !isNaN(Number(amount))
+              )
+            }
           >
             {loading ? <span className="loading loading-spinner" /> : 'Send ORA'}
           </button>
         </div>
       </form>
-    </dialog>
-  )
-}
+    </div>
+  );
+}  
 
 export default Transact
