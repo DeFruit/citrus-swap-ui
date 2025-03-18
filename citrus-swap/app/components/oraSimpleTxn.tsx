@@ -249,7 +249,7 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
           onChange={(e) => setReceiverAddress(e.target.value)}
         />
 
-        <div className="w-full rounded-full shadow-xl bg-orange-400 flex flex-col gap-4 p-4 border-4 border-lime-300">
+        <div className="w-full rounded-full shadow-xl bg-orange-400 flex flex-col gap-4 p-4 border-4 border-accent">
           <div className="flex justify-between space-x-2">
             <Image
               src={`/${ASSET_INFO[Number(ORA_ASSET_ID)].params.unitName}-logo.png`}
@@ -258,7 +258,7 @@ const Transact = ({ openModal, setModalState, triggerNotification }: TransactInt
               height={100}
             />
             <input
-              className="w-full rounded-full border-4 border-lime-300 text-4xl text-orange-400 text-right px-4"
+              className="w-full rounded-full border-4 border-accent text-4xl text-orange-400 text-right px-4"
               placeholder="0.00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)} // Handle amount input here

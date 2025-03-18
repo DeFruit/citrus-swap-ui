@@ -5,3 +5,4 @@ export const algorand = AlgorandClient.fromConfig({
     server: "https://mainnet-api.algonode.cloud",
   },
 });
+

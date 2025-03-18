@@ -53,7 +53,7 @@ export const SwapInput: React.FC<SwapInputProps> = ({ assetId }) => {
   };
 
   return (
-    <div className="w-full rounded-full shadow-xl bg-orange-400 flex flex-col gap-4 p-4 border-4 border-lime-300">
+    <div className="w-full rounded-full shadow-xl bg-primary flex flex-col gap-4 p-4 ">
       <div className="flex justify-between space-x-2">
         <Image
           src={`/${ASSET_INFO[assetId].params.unitName}-logo.png`}
@@ -65,11 +65,11 @@ export const SwapInput: React.FC<SwapInputProps> = ({ assetId }) => {
         <div className="relative w-full">
           {!isFromInput && isLoading ? (
             <div className="w-full h-full flex items-center justify-end pr-10">
-              <div className="animate-spin h-8 w-8 border-4 border-lime-300 rounded-full border-t-transparent" />
+              <div className="animate-spin h-8 w-8 rounded-full border-t-transparent" />
             </div>
           ) : (
             <Input
-              className="w-full h-full rounded-full border-4 border-lime-300 bg-white font-bari text-4xl text-gray-500 text-right px-4"
+              className="w-full h-full rounded-full  bg-white font-fred font-bold text-4xl text-gray-500 text-right px-4"
               placeholder="0.00"
               value={amount}
               onChange={(e) => handleAmountChange(e.target.value)}

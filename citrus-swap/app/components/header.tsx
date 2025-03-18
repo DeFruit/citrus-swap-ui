@@ -1,3 +1,4 @@
+"use client";
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Dialog } from "@headlessui/react";
 import { useWallet } from "@txnlab/use-wallet-react";
@@ -147,7 +148,7 @@ export function Header() {
   }, [displayWalletConnectModal]);
 
   return (
-    <header className="bg-white">
+    <header className="bg-primary">
       {/* Desktop and Mobile Navigation */}
       <nav
         aria-label="Global"
@@ -158,12 +159,7 @@ export function Header() {
           {/* Logo */}
           <a href="#" className="">
             <span className="sr-only">Citrus Swap</span>
-            <Image
-              src="/Citrus Swap.svg"
-              alt="Citrus Swap Logo"
-              width={300}
-              height={200}
-            />
+            
           </a>
         </div>
 

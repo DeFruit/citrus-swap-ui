@@ -11,7 +11,7 @@ import { useSwap } from '../context/swap'
 export const Swapper: React.FC = () => {
   const [isSwapped, setIsSwapped] = useState(false)
 
-  const { switchAssets } = useSwap()
+  const { switchAssets, makeSwapTransaction } = useSwap()
   const onClickSwitchAssets = () => {
     setIsSwapped((prev) => !prev)
     switchAssets()
@@ -39,7 +39,7 @@ export const Swapper: React.FC = () => {
               className="w-full flex mx-auto justify-center"
               transition={{ layout: { type: 'spring', stiffness: 300, damping: 20 }, ease: 'easeInOut' }}
             >
-              <span className="w-12 h-12 text-lime-300 bg-orange-400 rounded-full border-4 border-lime-300 hover:border-orange-400 hover:text-orange-400 hover:bg-lime-300 hover:scale-150 ease-in-out transition-all">
+              <span className="w-10 h-10 p-1 text-white  bg-primary rounded-full  hover:scale-150 ease-in-out transition-all">
                 <ArrowsUpDownIcon />
               </span>
             </motion.button>
@@ -72,7 +72,9 @@ export const Swapper: React.FC = () => {
               className="w-full flex mx-auto justify-center"
               transition={{ layout: { type: 'spring', stiffness: 300, damping: 20 }, ease: 'easeInOut' }}
             >
-              <ArrowsUpDownIcon className="w-12 h-12 text-lime-300 bg-orange-400 rounded-full border-4 border-lime-300 hover:border-orange-400 hover:text-orange-400 hover:bg-lime-300 hover:scale-150 ease-in-out transition-all" />
+              <span className="w-10 h-10 p-1 text-white  bg-primary rounded-full  hover:scale-150 ease-in-out transition-all">
+                <ArrowsUpDownIcon />
+              </span>
             </motion.button>
 
             <motion.div
@@ -88,7 +90,7 @@ export const Swapper: React.FC = () => {
 
         {/* Swap Button */}
         <div className="flex w-full mx-auto justify-center">
-          <AnimButton onClick={() => {}}>Swap</AnimButton>
+          <AnimButton onClick={makeSwapTransaction}>Swap</AnimButton>
         </div>
       </div>
     </div>

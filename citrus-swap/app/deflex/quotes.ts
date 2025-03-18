@@ -21,11 +21,12 @@ export async function getQuote(
     // Scale down quote based on asset decimals
     const toAssetDecimals = assetIdTo === ALGO_ASSET_ID ? 6 : Number(ORA_ASSET_INFO.params.decimals);
     const scaledQuote = Number(deflexQuote.quote) / Math.pow(10, toAssetDecimals);
-
+    console.log(deflexQuote.txnPayload);
     return {
       quote: scaledQuote,
       profitAmount: deflexQuote.profitAmount,
-      protocolFees: deflexQuote.protocolFees
+      protocolFees: deflexQuote.protocolFees,
+      transactionPayload: deflexQuote.txnPayload
     };
   } catch (error) {
     console.error("Error fetching quote:", error);
