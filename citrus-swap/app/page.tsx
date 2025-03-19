@@ -15,6 +15,7 @@ import {
 import { FaWater } from "react-icons/fa";
 import Footer from "./components/footer";
 import Image from "next/image";
+import { WalletConnectionModal } from "./components/walletConnectModal";
 
 const Home: React.FC = () => {
   const { activeAddress } = useWallet();
@@ -65,10 +66,10 @@ const Home: React.FC = () => {
 
   return (
     <div>
-     {/*  <Header /> */}
+      {/*  <Header /> */}
 
       <div className="bg-primary items-center justify-items-center h-screen w-full ">
-        <main className="row-start-2 items-center justify-start grid grid-cols-1 md:grid-cols-2">
+        <main className="row-start-2 items-center justify-start grid grid-cols-1 md:grid-cols-2 w-full px-3">
           <div className="col-span-1">
             <Image
               src="/citrus-swap-logo.svg"
@@ -78,26 +79,14 @@ const Home: React.FC = () => {
               height={80}
             />
           </div>
-          <div className="col-span-1">
+          <div className="col-span-1 flex flex-col items-center justify-center w-full">
             <Tabs options={tabOptions} onClickHandler={(e) => onChangeTab(e)} />
-            <SwapContainer />
+            <SwapContainer tabSelection={selectedTab.label} />
             <Footer />
           </div>
         </main>
       </div>
 
-      {/* Send Algo Button at Bottom Right */}
-      {activeAddress && (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            toggleTransactModal();
-          }}
-          className="fixed bottom-4 right-4 bg-secondary hover:bg-accent text-button-text font-bold py-2 px-4 rounded-full shadow-lg"
-        >
-          🎁 Send a friend some $ORA!
-        </button>
-      )}
 
       {/* Transact Modal */}
       <Transact
@@ -113,6 +102,7 @@ const Home: React.FC = () => {
         notificationType={notificationType}
         setShowNotification={setShowNotification}
       />
+      <WalletConnectionModal />
     </div>
   );
 };
