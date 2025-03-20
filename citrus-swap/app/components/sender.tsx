@@ -133,7 +133,7 @@ export const Sender: React.FC = () => {
   
   return (
     <div className="flex flex-col items-center justify-center gap-4 w-full ">
-      <div className="text-3xl font-bold text-white flex items-center justify-center gap-2">
+      <div className="text-2xl md:text-3xl font-bold text-white flex items-center justify-center gap-2">
         Your ORA balance: {Number(userBalance).toFixed(2)}
         <Image
           src={`/ORA-logo.png`}

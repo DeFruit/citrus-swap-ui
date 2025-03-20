@@ -69,7 +69,7 @@ const Home: React.FC = () => {
     <div>
       {/*  <Header /> */}
 
-      <div className="bg-primary items-center justify-items-center h-screen w-full ">
+      <div className="bg-primary items-center justify-items-center h-screen w-full pt-10 md:pt-1">
         <main className="row-start-2 items-center justify-start grid grid-cols-1 md:grid-cols-2 w-full px-3">
           <div className="col-span-1">
             <Image

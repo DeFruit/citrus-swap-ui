@@ -65,7 +65,7 @@ const navigation = [
 
 export default function Footer() {
   return (
-    <div className="bg-transparent w-full flex justify-between mt-2 mx-1">
+    <div className="bg-transparent w-full flex justify-between mt-2 mx-1 items-baseline">
       <p className="mt-8 text-center text-sm/6 text-gray-600  md:mt-0">
         &copy; 2025 DeFruit. All rights reserved.
       </p>
