@@ -14,6 +14,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { FaWater } from "react-icons/fa";
 import Footer from "./components/footer";
+import Image from "next/image";
+import { WalletConnectionModal } from "./components/walletConnectModal";
 
 const Home: React.FC = () => {
   const { activeAddress } = useWallet();
@@ -36,13 +38,13 @@ const Home: React.FC = () => {
   >("info");
 
   const [tabOptions] = useState([
-    { label: "Swap",  },
+    { label: "Swap" },
     { label: "Send", icon: <PaperAirplaneIcon /> },
     { label: "Liquidity", icon: <FaWater /> },
   ]);
   const [selectedTab, setSelectedTab] = useState<TabOptionInterface>({
     label: "Swap",
-    icon: <ArrowsUpDownIcon />
+    icon: <ArrowsUpDownIcon />,
   });
 
   const onChangeTab = (label: string) => {
@@ -64,38 +66,27 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <Header />
+      {/*  <Header /> */}
 
-      <div className="bg-gradient-to-br from-lime-300 to-amber-400 items-center justify-items-center min-h-screen w-full ">
-        <div className="flex flex-col w-full items-center bg-gradient-to-b from-orange-500 to-orange-400 p-4 ">
-          <h1 className=" text-4xl sm:text-6xl text-lime-400 font-bari">
-            Welcome to Citrus Swap
-          </h1>
-          <h2 className="font-Bari text-2xl sm:text-4xl text-lime-300 font-bari">
-            The ORA micro-DEX
-          </h2>
-        </div>
-        <main className="flex flex-col row-start-2 items-center justify-start mt-10 ">
-          <Tabs
-            options={tabOptions}
-            onClickHandler={(e) => onChangeTab(e)}
-          />
-          <SwapContainer />
+      <div className="bg-primary items-center justify-items-center h-screen w-full ">
+        <main className="row-start-2 items-center justify-start grid grid-cols-1 md:grid-cols-2 w-full px-3">
+          <div className="col-span-1">
+            <Image
+              src="/citrus-swap-logo.svg"
+              alt="Citrus Swap"
+              className="w-full h-full object-cover scale-90 -rotate-12 hidden md:block"
+              width={80}
+              height={80}
+            />
+          </div>
+          <div className="col-span-1 flex flex-col items-center justify-center w-full">
+            <Tabs options={tabOptions} onClickHandler={(e) => onChangeTab(e)} />
+            <SwapContainer tabSelection={selectedTab.label} />
+            <Footer />
+          </div>
         </main>
       </div>
 
-      {/* Send Algo Button at Bottom Right */}
-      {activeAddress && (
-        <button
-          onClick={(event) => {
-            event.preventDefault();
-            toggleTransactModal();
-          }}
-          className="fixed bottom-4 right-4 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-full shadow-lg"
-        >
-          🎁 Send a friend some $ORA!
-        </button>
-      )}
 
       {/* Transact Modal */}
       <Transact
@@ -111,7 +102,7 @@ const Home: React.FC = () => {
         notificationType={notificationType}
         setShowNotification={setShowNotification}
       />
-      <Footer />
+      <WalletConnectionModal />
     </div>
   );
 };

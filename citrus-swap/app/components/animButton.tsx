@@ -4,9 +4,10 @@ import React from 'react'
 interface AnimButtonProps {
   onClick: () => void
   children: React.ReactNode
+  disabled?: boolean
 }
 
-const AnimButton: React.FC<AnimButtonProps> = ({ onClick, children }) => {
+const AnimButton: React.FC<AnimButtonProps> = ({ onClick, children, disabled }) => {
   return (
     <motion.button
       whileHover={{
@@ -17,7 +18,8 @@ const AnimButton: React.FC<AnimButtonProps> = ({ onClick, children }) => {
       }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className="bg-lime-300 hover:text-white text-orange-400 text-3xl font-bari rounded-full px-6 py-2 w-1/2 border-4 border-orange-400 shadow-xl"
+      className={`bg-primary hover:text-white text-white text-3xl font-fred font-bold rounded-full px-6 py-2 w-1/2  shadow-xl cursor-pointer ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+      disabled={disabled}
     >
       {children}
     </motion.button>

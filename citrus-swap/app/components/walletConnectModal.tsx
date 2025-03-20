@@ -37,7 +37,7 @@ export const WalletConnectionModal: React.FC = () => {
                 />
               </div>
               <div className="flex items-center justify-center gap-2">
-                <h3 className="text-4xl text-green-500">Connect Wallet</h3>
+                <h3 className="text-4xl text-white">Connect Wallet</h3>
               </div>
 
               <br />
@@ -45,7 +45,7 @@ export const WalletConnectionModal: React.FC = () => {
                 {wallets?.map((wallet) => (
                   <div
                     key={`wallet-${wallet.metadata.name}`}
-                    className="flex gap-4 p-4 hover:bg-accent rounded-full hover:scale-101 transition-all justify-center items-center"
+                    className="flex gap-4 p-4  rounded-full text-fred hover:font-bold hover:scale-105 transition-all justify-center items-center"
                     onClick={() => handleOnConnect(wallet)}
                   >
                     <div className=" items-center justify-center">

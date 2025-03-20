@@ -4,8 +4,7 @@
 
 /* Define root colours */
 :root {
-  --background: #ce8936;
-  --foreground: #d13939;
+
 }
 
 @font-face {
@@ -26,4 +25,11 @@
   --font-mono: "Courier New", monospace;
   --font-bari: "Barriecito", cursive;
   --font-fred: "Fredoka", cursive;
+  --color-background: #FFF5E1;
+  --color-primary: #ffbf00;
+  --color-secondary: #ff8a00;
+  --color-accent: #77d838;
+  --color-header-text: #8B4513;
+  --color-button-text: #FFFFFF;
+  --color-body-text: #333333;
 }
