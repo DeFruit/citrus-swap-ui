@@ -38,13 +38,13 @@ const Home: React.FC = () => {
   >("info");
 
   const [tabOptions] = useState([
-    { label: "Swap", enabled: true },
-    { label: "Send", icon: <PaperAirplaneIcon />, enabled: false },
+    { label: "Send", icon: <PaperAirplaneIcon />, enabled: true },
+    { label: "Swap", icon: <ArrowsUpDownIcon />, enabled: false },
     { label: "Liquidity", icon: <FaWater />, enabled: false },
   ]);
   const [selectedTab, setSelectedTab] = useState<TabOptionInterface>({
-    label: "Swap",
-    icon: <ArrowsUpDownIcon />,
+    label: "Send",
+    icon: <PaperAirplaneIcon />,
     enabled: true,
   });
 
@@ -87,7 +87,6 @@ const Home: React.FC = () => {
           </div>
         </main>
       </div>
-
 
       {/* Transact Modal */}
       <Transact
