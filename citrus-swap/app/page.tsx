@@ -38,13 +38,14 @@ const Home: React.FC = () => {
   >("info");
 
   const [tabOptions] = useState([
-    { label: "Swap" },
-    { label: "Send", icon: <PaperAirplaneIcon /> },
-    { label: "Liquidity", icon: <FaWater /> },
+    { label: "Swap", enabled: true },
+    { label: "Send", icon: <PaperAirplaneIcon />, enabled: false },
+    { label: "Liquidity", icon: <FaWater />, enabled: false },
   ]);
   const [selectedTab, setSelectedTab] = useState<TabOptionInterface>({
     label: "Swap",
     icon: <ArrowsUpDownIcon />,
+    enabled: true,
   });
 
   const onChangeTab = (label: string) => {

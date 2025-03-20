@@ -4,7 +4,8 @@ import React, { ReactNode, useState } from "react";
 
 export interface TabOptionInterface {
   label: string;
-  icon?: ReactNode;
+    icon?: ReactNode;
+  enabled: boolean;
 }
 interface TabsPropsInterface {
   options: TabOptionInterface[];
@@ -18,28 +19,33 @@ export const Tabs: React.FC<TabsPropsInterface> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<TabOptionInterface>({
     label: options[0].label,
+    enabled: options[0].enabled,
   });
 
   return (
     <div className={`flex z-10 w-full justify-evenly mb-2`}>
       {options.map((option, index) => (
-        <div
+        <button
           key={index}
           className={`py-2 px-6 cursor-pointer text-white text-4xl font-fred flex  items-center
             ${
               activeTab.label === option.label
                 ? "bg-secondary font-bold  rounded-full"
-                : "bg-primary transition-all ease-in-out rounded-full hover:text-background "
+                : `bg-primary transition-all ease-in-out rounded-full hover:text-background ${option.enabled ? "cursor-pointer" : "cursor-not-allowed"}`
             }`}
           onClick={() => {
-            setActiveTab(option);
-            if (onClickHandler) {
-              onClickHandler(option.label);
+            if (option.enabled) {
+              setActiveTab(option);
+              if (onClickHandler) {
+                onClickHandler(option.label);
+              }
             }
           }}
+          disabled={!option.enabled}
         >
           <h2>{option.label}</h2>
-        </div>
+          
+        </button>
       ))}
     </div>
   );
