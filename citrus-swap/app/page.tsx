@@ -69,15 +69,15 @@ const Home: React.FC = () => {
     <div>
       {/*  <Header /> */}
 
-      <div className="bg-primary items-center justify-items-center h-screen w-full pt-10 md:pt-1">
-        <main className="row-start-2 items-center justify-start grid grid-cols-1 md:grid-cols-2 w-full px-3">
-          <div className="col-span-1">
+      <div className="bg-primary items-center justify-items-center h-screen w-full pt-3 md:pt-1">
+        <main className="row-start-2 items-center justify-start md:grid md:grid-cols-2 w-full px-3">
+          <div className="col-span-1 flex justify-center items-center">
             <Image
               src="/citrus-swap-logo.svg"
               alt="Citrus Swap"
-              className="w-full h-full object-cover scale-90 -rotate-12 hidden md:block"
-              width={80}
-              height={80}
+              className="h-1/2 w-1/2 md:h-full md:w-full object-cover  -rotate-12 "
+              width={100}
+              height={100}
             />
           </div>
           <div className="col-span-1 flex flex-col items-center justify-center w-full">

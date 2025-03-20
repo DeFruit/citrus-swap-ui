@@ -27,7 +27,7 @@ export const Tabs: React.FC<TabsPropsInterface> = ({
       {options.map((option, index) => (
         <button
           key={index}
-          className={`py-2 px-6 cursor-pointer text-white text-4xl font-fred flex  items-center
+          className={`py-2 px-6 cursor-pointer text-white text-2xl md:text-4xl font-fred flex  items-center
             ${
               activeTab.label === option.label
                 ? "bg-secondary font-bold  rounded-full"

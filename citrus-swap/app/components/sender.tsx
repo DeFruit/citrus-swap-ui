@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ORA_ASSET_ID, ORA_ASSET_INFO } from "../constants";
 import AnimButton from "./animButton";
 import { useWallet } from "@txnlab/use-wallet-react";
@@ -10,15 +10,18 @@ import Image from "next/image";
 import { Input } from "@headlessui/react";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
+import { WalletContext } from "../context/wallet";
+import { DisconnectButton } from "./disconnectButton";
 
 export const Sender: React.FC = () => {
   const { activeAccount, transactionSigner } = useWallet();
   const [userBalance, setUserBalance] = useState<number>(0);
-  const [amount, setAmount] = useState(0n);
+  const [amount, setAmount] = useState(0);
   const [error, setError] = useState<boolean>(false);
   const [address, setAddress] = useState("");
   const [addressInput, setAddressInput] = useState("");
   const [transactionLoading, setTransactionLoading] = useState(false);
+  const { setDisplayWalletConnectModal } = useContext(WalletContext);
 
   useEffect(() => {
     async function getUserBalance() {
@@ -27,8 +30,8 @@ export const Sender: React.FC = () => {
           .accountAssetInformation(activeAccount.address, ORA_ASSET_ID)
           .do();
         const balance =
-          (userBalanceInfo?.assetHolding?.amount || 0n) /
-          10n ** ORA_ASSET_INFO.params.decimals;
+          Number(userBalanceInfo?.assetHolding?.amount || 0) /
+          10 ** Number(ORA_ASSET_INFO.params.decimals);
         console.log(balance);
         setUserBalance(Number(balance));
       }
@@ -95,16 +98,16 @@ export const Sender: React.FC = () => {
     //validate amount
     if (Number(value) > userBalance) {
       setError(true);
-      setAmount(BigInt(Number(value)));
+      setAmount(Number(value));
       console.log("error", error);
       return;
     }
-    setAmount(BigInt(Number(value)));
+    setAmount(Number(value));
     setError(false);
   }
 
   async function handleSendAsset() {
-    if (error || amount === 0n) {
+    if (error || amount === 0) {
       return;
     }
     if (!activeAccount) {
@@ -116,24 +119,22 @@ export const Sender: React.FC = () => {
       .assetTransfer({
         sender: activeAccount.address,
         receiver: address,
-        amount: amount * 10n ** ORA_ASSET_INFO.params.decimals,
+        amount: BigInt(amount * 10 ** Number(ORA_ASSET_INFO.params.decimals)),
         assetId: BigInt(ORA_ASSET_ID),
       })
       .then((txn) => {
         console.log(txn);
         setTransactionLoading(false);
-
       })
       .catch((error) => {
         console.error(error);
         setTransactionLoading(false);
-
       });
   }
-  
+
   return (
     <div className="flex flex-col items-center justify-center gap-4 w-full ">
-      <div className="text-2xl md:text-3xl font-bold text-white flex items-center justify-center gap-2">
+      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-center justify-center gap-2">
         Your ORA balance: {Number(userBalance).toFixed(2)}
         <Image
           src={`/ORA-logo.png`}
@@ -147,7 +148,7 @@ export const Sender: React.FC = () => {
         <div className="flex justify-between space-x-2">
           <Image
             src={`/ORA-logo.png`}
-            className=""
+            className="w-16 h-16"
             alt={"$ORA"}
             width={100}
             height={100}
@@ -169,7 +170,7 @@ export const Sender: React.FC = () => {
         <div className="flex justify-between space-x-2">
           <div className="relative w-full">
             <Input
-              className={`w-full h-full rounded-full bg-white font-fred font-bold text-4xl ${
+              className={`w-full h-full rounded-full bg-white font-fred font-bold text-2xl md:text-4xl ${
                 error ? "text-red-500/60" : "text-gray-500"
               } text-right px-4`}
               placeholder="Enter address or NFD"
@@ -179,12 +180,23 @@ export const Sender: React.FC = () => {
           </div>
         </div>
       </div>
-      <AnimButton
-        disabled={error || amount === 0n || transactionLoading}
-        onClick={() => handleSendAsset()}
-      >
-        {transactionLoading ? "Sending..." : "Send ORA"}
-      </AnimButton>
+      {activeAccount ? (
+        <div className="flex w-full mx-auto justify-center gap-2">
+          <AnimButton
+            disabled={error || amount === 0 || transactionLoading}
+            onClick={() => handleSendAsset()}
+          >
+            {transactionLoading ? "Sending..." : "Send ORA"}
+          </AnimButton>
+          <DisconnectButton />
+        </div>
+      ) : (
+        <div className="flex w-full mx-auto justify-center">
+          <AnimButton onClick={() => setDisplayWalletConnectModal(true)}>
+            Connect Wallet
+          </AnimButton>
+        </div>
+      )}
     </div>
   );
 };

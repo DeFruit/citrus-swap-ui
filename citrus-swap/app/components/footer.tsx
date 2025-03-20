@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const navigation = [
-  {
+  /* {
     name: "Facebook",
     href: "#",
     icon: (props: any) => (
@@ -12,8 +12,8 @@ const navigation = [
         />
       </svg>
     ),
-  },
-  {
+  }, */
+  /* {
     name: "Instagram",
     href: "#",
     icon: (props: any) => (
@@ -25,7 +25,7 @@ const navigation = [
         />
       </svg>
     ),
-  },
+  }, */
   {
     name: "X",
     href: "https://x.com/CitrusSwapAlgo",
@@ -47,7 +47,7 @@ const navigation = [
         />
       </svg>
     ),
-  },
+  }/* ,
   {
     name: "YouTube",
     href: "#",
@@ -60,13 +60,13 @@ const navigation = [
         />
       </svg>
     ),
-  },
+  }, */
 ];
 
 export default function Footer() {
   return (
-    <div className="bg-transparent w-full flex justify-between mt-2 mx-1 items-baseline">
-      <p className="mt-8 text-center text-sm/6 text-gray-600  md:mt-0">
+    <div className="bg-transparent w-full flex justify-between mt-3">
+      <p className=" text-center text-sm/6 text-gray-600">
         &copy; 2025 DeFruit. All rights reserved.
       </p>
       <div className="flex justify-center ">

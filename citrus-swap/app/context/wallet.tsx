@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
+import { useWallet } from "@txnlab/use-wallet-react";
 
 interface WalletContextType {
   algoBalance: number;
@@ -11,6 +12,7 @@ interface WalletContextType {
   setAddress: (value: string) => void;
   displayWalletConnectModal: boolean;
   setDisplayWalletConnectModal: (value: boolean) => void;
+  disconnectWallet: () => void;
 }
 
 const WalletContext = createContext<WalletContextType>({} as WalletContextType);
@@ -18,11 +20,23 @@ const WalletContext = createContext<WalletContextType>({} as WalletContextType);
 const WalletContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { wallets } = useWallet();
   const [algoBalance, setAlgoBalance] = useState<number>(0);
   const [orangeBalance, setOrangeBalance] = useState<number>(0);
   const [address, setAddress] = useState<string>("");
   const [displayWalletConnectModal, setDisplayWalletConnectModal] =
     useState<boolean>(false);
+
+  const disconnectWallet = async () => {
+    console.log("disconnecting wallet");
+    await wallets[0].disconnect().then(() => {
+      console.log("wallet disconnected");
+      setDisplayWalletConnectModal(false);
+      setAlgoBalance(0);
+      setOrangeBalance(0);
+      setAddress("");
+    });
+  };
 
   return (
     <WalletContext.Provider
@@ -36,6 +50,7 @@ const WalletContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
         displayWalletConnectModal,
         setDisplayWalletConnectModal,
+        disconnectWallet,
       }}
     >
       {children}
