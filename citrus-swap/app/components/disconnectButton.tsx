@@ -1,15 +1,28 @@
 "use client";
 
-import { useContext } from "react";
-import { WalletContext } from "../context/wallet";
+
 import { motion } from "framer-motion";
 import { MdOutlineLogout } from "react-icons/md";
+import { useWallet } from '@txnlab/use-wallet-react'
+import { WalletContext } from "../context/wallet";
+import { useContext } from "react";
 export const DisconnectButton = () => {
-  const { disconnectWallet } = useContext(WalletContext);
+
+  const { activeWallet } = useWallet()
+  const { setWalletConnected } = useContext(WalletContext)
+
+  async function handleDisconnect() {
+    console.log('disconnecting wallet', activeWallet)
+    if(activeWallet) {
+      await activeWallet.disconnect().then(() => {
+        setWalletConnected(false)
+      })
+    }
+  }
 
   return (
     <motion.button
-      onClick={() => disconnectWallet()}
+      onClick={() => handleDisconnect()}
       className="text-gray-600 cursor-pointer"
       aria-label="Disconnect wallet"
       whileHover={{ 
