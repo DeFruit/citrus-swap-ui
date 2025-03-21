@@ -16,7 +16,7 @@ import { DisconnectButton } from "./disconnectButton";
 export const Sender: React.FC = () => {
   const { activeAccount, transactionSigner } = useWallet();
   const [userBalance, setUserBalance] = useState<number>(0);
-  const [amount, setAmount] = useState(0);
+  const [amount, setAmount] = useState("");  // Changed to string
   const [error, setError] = useState<boolean>(false);
   const [address, setAddress] = useState("");
   const [addressInput, setAddressInput] = useState("");
@@ -95,19 +95,30 @@ export const Sender: React.FC = () => {
   }
 
   async function handleAmountChange(value: string) {
-    //validate amount
+    if (value === "") {
+      setAmount("");
+      setError(false);
+      return;
+    }
+
+    // Only allow numbers and a single decimal point
+    if (!/^\d*\.?\d*$/.test(value)) {
+      return;
+    }
+    
+    // Compare as number but keep as string in state
     if (Number(value) > userBalance) {
       setError(true);
-      setAmount(Number(value));
+      setAmount(value);
       console.log("error", error);
       return;
     }
-    setAmount(Number(value));
+    setAmount(value);
     setError(false);
   }
 
   async function handleSendAsset() {
-    if (error || amount === 0) {
+    if (error || amount === "" || Number(amount) === 0) {
       return;
     }
     if (!activeAccount) {
@@ -119,7 +130,7 @@ export const Sender: React.FC = () => {
       .assetTransfer({
         sender: activeAccount.address,
         receiver: address,
-        amount: BigInt(amount * 10 ** Number(ORA_ASSET_INFO.params.decimals)),
+        amount: BigInt(Number(amount) * 10 ** Number(ORA_ASSET_INFO.params.decimals)),
         assetId: BigInt(ORA_ASSET_ID),
       })
       .then((txn) => {
@@ -159,7 +170,7 @@ export const Sender: React.FC = () => {
                 error ? "text-red-500/60" : "text-gray-500"
               } text-right px-4`}
               placeholder="0.00"
-              value={amount.toString()}
+              value={amount}
               onChange={(e: any) => handleAmountChange(e.target.value)}
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
@@ -183,7 +194,7 @@ export const Sender: React.FC = () => {
       {activeAccount ? (
         <div className="flex w-full mx-auto justify-center gap-2">
           <AnimButton
-            disabled={error || amount === 0 || transactionLoading}
+            disabled={error || amount === "" || Number(amount) === 0 || transactionLoading}
             onClick={() => handleSendAsset()}
           >
             {transactionLoading ? "Sending..." : "Send ORA"}
